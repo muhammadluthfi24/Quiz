@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MODUL 5 PRETEST WEB CLIENT</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+    .hidden {
+      display: none;
+    }
+    input[type="radio"]:disabled {
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>MODUL 5 PRETEST WEB CLIENT</h1>
+  <div id="login-section">
+    <label>NIM:</label><br>
+    <input type="text" id="nim"><br>
+    <label>Nama (Nama Lengkap Anda Huruf Besar):</label><br>
+    <input type="text" id="nama"><br>
+    <label>Password (Nama Lengkap Anda):</label><br>
+    <input type="password" id="password"><br><br>
+    <button class="btn" onclick="mulaiKuis()">Mulai MODUL 5 PRETEST WEB CLIENT</button>
+    <p id="login-error" style="color:red;"></p>
+  </div>
+
+  <form id="quiz-section" class="hidden" onsubmit="event.preventDefault(); kirimJawaban();">
+    <div id="timer" style="text-align:right; font-weight:bold;">Waktu: 02:00</div>
+    <h3>1. Tag HTML yang digunakan untuk membuat form adalah? *</h3>
+    <input type="radio" name="soal1" value="A" onclick="disableAnswers('soal1')"> <label>input</label><br>
+    <input type="radio" name="soal1" value="B" onclick="disableAnswers('soal1')"> <label>textarea</label><br>
+    <input type="radio" name="soal1" value="C" onclick="disableAnswers('soal1')"> <label>form</label><br>
+    <input type="radio" name="soal1" value="D" onclick="disableAnswers('soal1')"> <label>button</label><br>
+
+    <h3>2. Atribut action pada tag <form> digunakan untuk? *</h3>
+    <input type="radio" name="soal2" value="A" onclick="disableAnswers('soal2')"> <label>Mengatur URL kemana data akan dikirim</label><br>
+    <input type="radio" name="soal2" value="B" onclick="disableAnswers('soal2')"> <label>Menentukan lokasi yang digunakan untuk menampilkan respon</label><br>
+    <input type="radio" name="soal2" value="C" onclick="disableAnswers('soal2')"> <label>Menentukan metode pengiriman data</label><br>
+    <input type="radio" name="soal2" value="D" onclick="disableAnswers('soal2')"> <label>Menentukan target halaman</label><br>
+
+    <h3>3. Dua metode pengiriman data pada form adalah? *</h3>
+    <input type="radio" name="soal3" value="A" onclick="disableAnswers('soal3')"> <label>REQUEST dan RESPONSE</label><br>
+    <input type="radio" name="soal3" value="B" onclick="disableAnswers('soal3')"> <label>GET dan POST</label><br>
+    <input type="radio" name="soal3" value="C" onclick="disableAnswers('soal3')"> <label>INPUT dan OUTPUT</label><br>
+    <input type="radio" name="soal3" value="D" onclick="disableAnswers('soal3')"> <label>SEND dan RECEIVE</label><br>
+
+    <h3>4. Jika menggunakan metode pengiriman data GET, data yang dikirim akan? *</h3>
+    <input type="radio" name="soal4" value="A" onclick="disableAnswers('soal4')"> <label>Tidak terlihat di URL website</label><br>
+    <input type="radio" name="soal4" value="B" onclick="disableAnswers('soal4')"> <label>Disimpan di cookies</label><br>
+    <input type="radio" name="soal4" value="C" onclick="disableAnswers('soal4')"> <label>Dienkripsi</label><br>
+    <input type="radio" name="soal4" value="D" onclick="disableAnswers('soal4')"> <label>Terlihat di URL website</label><br>
+
+    <h3>5. Atribut method pada tag <form> digunakan untuk? *</h3>
+    <input type="radio" name="soal5" value="A" onclick="disableAnswers('soal5')"> <label>Mengatur URL kemana data akan dikirim.</label><br>
+    <input type="radio" name="soal5" value="B" onclick="disableAnswers('soal5')"> <label>Menentukan lokasi yang digunakan untuk menampilkan respon.</label><br>
+    <input type="radio" name="soal5" value="C" onclick="disableAnswers('soal5')"> <label>Menentukan cara protokol HTTP mengirim data.</label><br>
+    <input type="radio" name="soal5" value="D" onclick="disableAnswers('soal5')"> <label>Menentukan target halaman.</label><br>
+
+    <br>
+    <button type="submit" class="btn">Kirim Jawaban</button>
+  </form>
+
+  <div id="hasil" class="hidden">
+    <h2>Hasil MODUL 5 PRETEST WEB CLIENT</h2>
+    <p id="nilai"></p>
+    <p>Jangan lupa untuk screenshot nilai Anda dan kirim melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLSf73lKep6dc3spvhySXssmXPdfrjK7fR15NEx1ZNuyyV9J8-g/viewform?usp=sharing" target="_blank">link ini</a>.</p>
+  </div>
+</div>
+
+<script>
+  const dataSiswa = {
+    "245610003": "ANGGA PRADHITA SETIAWAN",
+    "245610006": "AERIO EGA RADITYA",
+    "245610018": "APRIALDO FRANS",
+    "245610028": "AHDAN ABDE RIFAI",
+    "245610033": "AMANDA ADI ASTUTI",
+    "245610037": "ARRAFI NUR HAFIZ",
+    "245610040": "AYOK DWI NUGROHO",
+    "245610041": "AKILLA AYUWANDEWI PUTRI EDYRA",
+    "245610046": "ARTIKA DHEA MAHARANI",
+    "245610048": "ATHA ZAUL GHITHRIF",
+    "245610052": "ANDRYAN FERRY KUSUMA PRATAMA",
+    "245610054": "AHMAD ZAENI RAFII",
+    "245610014": "BINTORO",
+    "245610008": "CLARITSA JUANA AGSATIE",
+    "245610004": "DON BOSCO FABLO WOJTYLA CARVALHO DE JESUS",
+    "245610042": "DAFFA MUNA MAITSA",
+    "245610045": "DEA ALMIRA INDIASTUTI",
+    "245610009": "FAIZ RIZKIAWAN",
+    "245610039": "FILLA AKBAR FADLILAH",
+    "245610053": "FARHAN PRATAMA",
+    "245610044": "GHEA SIKA AURELIA",
+    "245610015": "IPSAL S KUNAK",
+    "245610026": "ISMAIL WAHYU GINANJAR",
+    "245610038": "IRVAN SAPUTRA",
+    "225610048": "JUNAIDIN",
+    "245610032": "JUSTIVAN INTIFADHAH AFIF",
+    "245610005": "MARTINUS SIMON KAHA JR",
+    "245610016": "MIRZA RABBANI",
+    "245610043": "MAYANG WULANDARI",
+    "245610050": "MATHEUS BALUBUN",
+    "245610010": "OCTOVIA AYU PUSPARANI",
+    "245610020": "RISKI SETIAWAN",
+    "245610023": "RENDI FEBRIANTO",
+    "245610031": "RORO AYU SAVERA WIJAYA",
+    "245610011": "SASKIA ALISKA MASPAITELLA",
+    "245610022": "SITI ZULAIKHA AKBAR",
+    "245610025": "SERAPION NIKOLAS ANUGERAH",
+    "245610012": "TIARA IRENE RAHMAWATI",
+    "245610034": "TUTUT CATUR CLODIYA",
+    "245610030": "WILLIAM PIERRE MACHASELANO IRWAN MAMONTO"
+  };
+
+  const jawabanBenar = {
+    soal1: "C",
+    soal2: "A",
+    soal3: "B",
+    soal4: "D",
+    soal5: "C"
+  };
+
+  const tabKey = "examTabActive";
+
+  if (localStorage.getItem(tabKey)) {
+    alert("Anda sudah membuka MODUL 5 PRETEST WEB CLIENT di tab lain. Anda tidak bisa membuka tab lain.");
+    window.close();
+  } else {
+    localStorage.setItem(tabKey, "true");
+  }
+
+  window.onbeforeunload = function() {
+    localStorage.removeItem(tabKey);
+  };
+
+  function mulaiKuis() {
+    const nim = document.getElementById("nim").value.trim();
+    const nama = document.getElementById("nama").value.trim().toUpperCase();
+    const password = document.getElementById("password").value.trim().toUpperCase();
+    const errorBox = document.getElementById("login-error");
+
+    if (!(nim in dataSiswa) || dataSiswa[nim] !== nama || password !== nama) {
+      errorBox.textContent = "Login gagal. Pastikan NIM, Nama, dan Password sesuai.";
+      return;
+    }
+
+    document.getElementById("login-section").classList.add("hidden");
+    document.getElementById("quiz-section").classList.remove("hidden");
+    mulaiTimer();
+  }
+
+  function disableAnswers(soal) {
+    const soalOptions = document.getElementsByName(soal);
+    soalOptions.forEach(option => {
+      option.disabled = true;
+    });
+  }
+
+  function mulaiTimer() {
+    const batasWaktu = new Date();
+    batasWaktu.setMinutes(batasWaktu.getMinutes() + 2);  // Set timer untuk 2 menit dari sekarang
+
+    const interval = setInterval(() => {
+      const sekarang = new Date();
+      const sisa = Math.floor((batasWaktu - sekarang) / 1000);
+      const menit = Math.floor(sisa / 60);
+      const detik = sisa % 60;
+
+      if (sisa <= 0) {
+        clearInterval(interval);
+        alert("Waktu habis! Jawaban akan dikirim.");
+        kirimJawaban();
+        return;
+      }
+
+      document.getElementById("timer").textContent =
+        `Waktu: ${menit}:${detik < 10 ? '0' : ''}${detik}`;
+    }, 1000);
+  }
+
+  function kirimJawaban() {
+    const nim = document.getElementById("nim").value.trim();
+    const nama = document.getElementById("nama").value.trim().toUpperCase();
+
+    const data = {
+      nim: nim,
+      nama: nama,
+      soal1: document.querySelector('input[name="soal1"]:checked')?.value || "",
+      soal2: document.querySelector('input[name="soal2"]:checked')?.value || "",
+      soal3: document.querySelector('input[name="soal3"]:checked')?.value || "",
+      soal4: document.querySelector('input[name="soal4"]:checked')?.value || "",
+      soal5: document.querySelector('input[name="soal5"]:checked')?.value || "",
+    };
+
+    let nilai = 0;
+    for (let i = 1; i <= 5; i++) {
+      if (data[`soal${i}`] === jawabanBenar[`soal${i}`]) {
+        nilai += 20;  // Tambahkan 20 poin untuk setiap jawaban yang benar
+      }
+    }
+
+    document.getElementById("quiz-section").classList.add("hidden");
+    document.getElementById("hasil").classList.remove("hidden");
+    document.getElementById("nilai").innerHTML = `
+      <strong>Nama:</strong> ${data.nama}<br>
+      <strong>NIM:</strong> ${data.nim}<br>
+      <strong>Nilai Anda:</strong> ${nilai} dari 100
+    `;
+  }
+</script>
+</body>
+</html>
